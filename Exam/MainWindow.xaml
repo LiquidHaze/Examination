@@ -1,0 +1,31 @@
+﻿<Window x:Class="Exam.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Exam"
+        mc:Ignorable="d"
+        Title="Выбор роли" Height="230" Width="320">
+    <Grid>
+        <StackPanel x:Name="RoleSelector" Margin="20">
+            <Label Height="30" Width="150" Margin="10" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top">Выберите роль:</Label>
+            <Button x:Name="Admin" Click="Admin_Click" Height="30" Width="150" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top">Администратор</Button>
+            <Button x:Name="Student" Click="Student_Click" Height="30" Width="150" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top">Испытуемый</Button>
+        </StackPanel>
+        <StackPanel x:Name="Loginlayer" IsEnabled="False" Visibility="Hidden">
+            <Label Height="30" Width="150" Margin="10" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top">Авторизуйтесь:</Label>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <Label x:Name="LogNameInfo" Height="30" Width="85"  HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Top">Login:</Label>
+                <TextBox x:Name="LoginValue"  Height="30" Width="200" VerticalAlignment="Top"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <Label x:Name="PasswordInfo" Height="30" Width="85"  HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Top">Пароль:</Label>
+                <TextBox x:Name="PwdValue" Height="30" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top"></TextBox>
+            </StackPanel>
+            <Grid Margin="0,20">
+                <Button x:Name="Cancel" Click="Cancel_Click" Margin="20,0" Height="30" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom">Отмена</Button>
+                <Button x:Name="Login" Click="Login_Click" Margin="20,0" Height="30" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Left">Войти</Button>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

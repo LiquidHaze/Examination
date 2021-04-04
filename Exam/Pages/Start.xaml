@@ -1,0 +1,34 @@
+﻿<Page x:Class="Exam.Pages.Start"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Exam.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="560" d:DesignWidth="1000"
+      Background="White"
+      Title="Start">
+
+    <Grid>
+        <StackPanel Margin="0,1,0,-1">
+            <StackPanel Orientation="Horizontal">
+                <Label FontSize="30">✓</Label>
+                <Label FontSize="30">Вопрос №</Label>
+                <Label FontSize="30">1</Label>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock x:Name="Question" FontSize="25" TextWrapping="Wrap" Margin="10">Question: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</TextBlock>
+                <RadioButton x:Name="Option1" GroupName="Options" FontSize="20" Margin="5">1 Lorem ipsum dolor sit amet</RadioButton>
+                <RadioButton x:Name="Option2" GroupName="Options" FontSize="20" Margin="5">2 Lorem ipsum dolor sit amet</RadioButton>
+                <RadioButton x:Name="Option3" GroupName="Options" FontSize="20" Margin="5">3 Lorem ipsum dolor sit amet</RadioButton>
+                <RadioButton x:Name="Option4" GroupName="Options" FontSize="20" Margin="5">4 Lorem ipsum dolor sit amet</RadioButton>
+            </StackPanel>
+            <StackPanel x:Name="ProgressBar" Orientation="Horizontal"></StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button FontSize="20" Margin="5">Принять</Button>
+                <Button FontSize="20" Margin="5">Пропустить</Button>
+                <Button FontSize="20" Margin="5">Статус</Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>
