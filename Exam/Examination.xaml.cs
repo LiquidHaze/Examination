@@ -25,16 +25,20 @@ namespace Exam
 	public partial class ExaminationSwitcher : Window
 	{
 		static string _data;
+		public static List<TopicDM> TopicsList;
+		public static string SelectedTopic;
+		public static List<ExerciseDM> qList;
 
 		public ExaminationSwitcher()
 		{
 			InitializeComponent();
 			Switcher.pageSwitcher = this;
-			Switcher.Switch(new Topic());
-			this.Closed += MainWindow_Closed;
-			WriteDoc();
 			ReadDoc();
-			//List<ExerciseDM> edm = JsonSerializer.Deserialize<List<ExerciseDM>>(_data);
+			TopicsList = JsonConvert.DeserializeObject<List<TopicDM>>(_data);
+			Topic TopicPage = new Topic();
+			Switcher.Switch(TopicPage);
+			this.Closed += MainWindow_Closed;
+			
 			var result = JsonConvert.DeserializeObject<List<TopicDM>>(_data);
 		}
 
@@ -46,43 +50,14 @@ namespace Exam
 		static async Task ReadDoc()
 		{
 			//string path = @"C:\SomeDir\hta.txt";
-			string path = "test2.txt";
+			string path = "testdata";
 
 			try
 			{
 				using (StreamReader sr = new StreamReader(path))
 				{
-					_data = Convert.ToBase64String(Encoding.ASCII.GetBytes(sr.ReadToEnd()));
+					_data = Encoding.ASCII.GetString(Convert.FromBase64String(sr.ReadToEnd()));
 				}
-				// асинхронное чтение
-				/*using (StreamReader sr = new StreamReader(path))
-				{
-					Console.WriteLine(await sr.ReadToEndAsync());
-				}*/
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e.Message);
-			}
-		}
-
-		void WriteDoc()
-		{
-			string writePath = "testdata";
-			string text = @"[{""title"":""Tema 1"",""content"":""Lorem ipsum dolor sit amet"",""exercises"":[{""question"":""1 - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."",""options"":[""1 Lorem ipsum dolor sit amet"",""2 Lorem ipsum dolor sit amet"",""3 Lorem ipsum dolor sit amet"",""4 Lorem ipsum dolor sit amet""]},{""question"":""2 - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."",""options"":[""1 Lorem ipsum dolor sit amet"",""2 Lorem ipsum dolor sit amet"",""3 Lorem ipsum dolor sit amet"",""4 Lorem ipsum dolor sit amet""]},{""question"":""3 - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."",""options"":[""1 Lorem ipsum dolor sit amet"",""2 Lorem ipsum dolor sit amet"",""3 Lorem ipsum dolor sit amet"",""4 Lorem ipsum dolor sit amet""]},{""question"":""4 - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."",""options"":[""1 Lorem ipsum dolor sit amet"",""2 Lorem ipsum dolor sit amet"",""3 Lorem ipsum dolor sit amet"",""4 Lorem ipsum dolor sit amet""]}]},{""title"":""Tema 1"",""content"":""Lorem ipsum dolor sit amet"",""exercises"":[{""question"":""1 - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."",""options"":[""1 Lorem ipsum dolor sit amet"",""2 Lorem ipsum dolor sit amet"",""3 Lorem ipsum dolor sit amet"",""4 Lorem ipsum dolor sit amet""]},{""question"":""2 - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."",""options"":[""1 Lorem ipsum dolor sit amet"",""2 Lorem ipsum dolor sit amet"",""3 Lorem ipsum dolor sit amet"",""4 Lorem ipsum dolor sit amet""]},{""question"":""3 - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."",""options"":[""1 Lorem ipsum dolor sit amet"",""2 Lorem ipsum dolor sit amet"",""3 Lorem ipsum dolor sit amet"",""4 Lorem ipsum dolor sit amet""]},{""question"":""4 - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."",""options"":[""1 Lorem ipsum dolor sit amet"",""2 Lorem ipsum dolor sit amet"",""3 Lorem ipsum dolor sit amet"",""4 Lorem ipsum dolor sit amet""]}]}]";
-			try
-			{
-				using (StreamWriter sw = new StreamWriter(writePath, false, System.Text.Encoding.Default))
-				{
-					sw.WriteLine(Convert.FromBase64String(text));
-				}
-
-				/*using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
-				{
-					sw.WriteLine("Дозапись");
-					sw.Write(4.5);
-				}*/
-				Console.WriteLine("Запись выполнена");
 			}
 			catch (Exception e)
 			{

@@ -11,20 +11,16 @@
       Title="Выбор темы">
 
     <Grid>
-        <StackPanel>
-            <StackPanel Orientation="Horizontal">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <Label>Выберите тему:</Label>
             </StackPanel>
-            <StackPanel>
-                <RadioButton>Тема 1</RadioButton>
-                <RadioButton>Тема 2</RadioButton>
-                <RadioButton>Тема 3</RadioButton>
+            <StackPanel x:Name="TopicList">
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="Accept" Click="Accept_Click">Принять</Button>
-                <Button x:Name="Cancel" Click="Cancel_Click">Отмена</Button>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button Margin="10" x:Name="Accept" Click="Accept_Click">Принять</Button>
+                <Button Margin="10" x:Name="Cancel" Click="Cancel_Click">Отмена</Button>
             </StackPanel>
         </StackPanel>
-        
     </Grid>
 </Page>

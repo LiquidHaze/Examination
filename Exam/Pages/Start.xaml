@@ -13,20 +13,47 @@
         <StackPanel Margin="0,1,0,-1">
             <StackPanel Orientation="Horizontal">
                 <Label FontSize="30">✓</Label>
-                <Label FontSize="30">Вопрос №</Label>
-                <Label FontSize="30">1</Label>
+                <Label x:Name="qName" FontSize="30">Вопрос №</Label>
+                <Label x:Name="qNumber" FontSize="30">1</Label>
             </StackPanel>
-            <StackPanel>
-                <TextBlock x:Name="Question" FontSize="25" TextWrapping="Wrap" Margin="10">Question: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</TextBlock>
-                <RadioButton x:Name="Option1" GroupName="Options" FontSize="20" Margin="5">1 Lorem ipsum dolor sit amet</RadioButton>
-                <RadioButton x:Name="Option2" GroupName="Options" FontSize="20" Margin="5">2 Lorem ipsum dolor sit amet</RadioButton>
-                <RadioButton x:Name="Option3" GroupName="Options" FontSize="20" Margin="5">3 Lorem ipsum dolor sit amet</RadioButton>
-                <RadioButton x:Name="Option4" GroupName="Options" FontSize="20" Margin="5">4 Lorem ipsum dolor sit amet</RadioButton>
+            <StackPanel x:Name="qHolder">
+                <TextBlock x:Name="Question" FontSize="25" TextWrapping="Wrap" Margin="10"></TextBlock>
             </StackPanel>
-            <StackPanel x:Name="ProgressBar" Orientation="Horizontal"></StackPanel>
+            <StackPanel x:Name="ProgressBar" HorizontalAlignment="Center" Orientation="Horizontal">
+                <Viewbox Height="40">
+                    <RadioButton Background="Gray"></RadioButton>
+                </Viewbox>
+                <Viewbox Height="40">
+                    <RadioButton Background="Gray"></RadioButton>
+                </Viewbox>
+                <Viewbox Height="40">
+                    <RadioButton Background="Gray"></RadioButton>
+                </Viewbox>
+                <Viewbox Height="40">
+                    <RadioButton Background="Gray"></RadioButton>
+                </Viewbox>
+                <Viewbox Height="40">
+                    <RadioButton Background="Gray"></RadioButton>
+                </Viewbox>
+                <Viewbox Height="40">
+                    <RadioButton Background="Gray"></RadioButton>
+                </Viewbox>
+                <Viewbox Height="40">
+                    <RadioButton Background="Gray"></RadioButton>
+                </Viewbox>
+                <Viewbox Height="40">
+                    <RadioButton Background="Gray"></RadioButton>
+                </Viewbox>
+                <Viewbox Height="40">
+                    <RadioButton Background="Gray"></RadioButton>
+                </Viewbox>
+                <Viewbox Height="40">
+                    <RadioButton Background="Gray"></RadioButton>
+                </Viewbox>
+            </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button FontSize="20" Margin="5">Принять</Button>
-                <Button FontSize="20" Margin="5">Пропустить</Button>
+                <Button x:Name="Accept" Click="Accept_Click" FontSize="20" Margin="5">Принять</Button>
+                <Button x:Name="Skip" Click="Skip_Click" FontSize="20" Margin="5">Пропустить</Button>
                 <Button FontSize="20" Margin="5">Статус</Button>
             </StackPanel>
         </StackPanel>

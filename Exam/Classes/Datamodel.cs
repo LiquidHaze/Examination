@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Exam.Classes
 {
-	class ExerciseDM
+	public class ExerciseDM
 	{
 		public string question;
 		public List<string> options;
-		private int correctIndex;
+		public int correctIndex;
 		public int currentIndex;
 		public bool done;
 
@@ -19,9 +19,15 @@ namespace Exam.Classes
 
 	}
 
-	class TopicDM
+	public static class ProgressBarStorage
+	{
+		public static int[] progress = new int[10] {2,2,2,2,2,2,2,2,2,2};
+	}
+
+	public class TopicDM
 	{
 		public string title;
+		public bool isActive;
 		public string content;
 		public List<ExerciseDM> exercises;
 
