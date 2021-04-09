@@ -47,18 +47,23 @@ namespace Exam.Pages
 		private void Star_Page_Loaded(object sender, EventArgs e)
 		{
 			AppendActiveQuestion();
-
+			qNumber.Content = qList.IndexOf(currQ).ToString();
+			qMarker.Foreground = new SolidColorBrush(Colors.Black);
 			foreach (Viewbox vb in ProgressBar.Children)
 			{
+				RadioButton rb = (RadioButton)vb.Child;
 				if (ProgressBarStorage.progress[ProgressBar.Children.IndexOf(vb)] == 1)
 				{
-					RadioButton rb = (RadioButton)vb.Child;
 					rb.Background = new SolidColorBrush(Colors.Green);
 				}
 				else if (ProgressBarStorage.progress[ProgressBar.Children.IndexOf(vb)] == 0)
 				{
-					RadioButton rb = (RadioButton)vb.Child;
 					rb.Background = new SolidColorBrush(Colors.Red);
+				}
+				if(qList.IndexOf(currQ) == ProgressBar.Children.IndexOf(vb))
+				{
+					rb.Background = new SolidColorBrush(Colors.Yellow);
+					rb.IsChecked = true;
 				}
 			}
 		}
@@ -101,6 +106,9 @@ namespace Exam.Pages
 						&& qList.IndexOf(src) != qList.IndexOf(currQ)));
 				}
 			}*/
+			if (currQ.done == true && ProgressBarStorage.progress[qList.IndexOf(currQ)] != 2)
+				return;
+
 			currQ.currentIndex = currQ.options.IndexOf(selectedOption);
 			foreach (Viewbox vb in ProgressBar.Children)
 			{
@@ -124,7 +132,7 @@ namespace Exam.Pages
 			}
 			else if (ProgressBarStorage.progress.Where(src => src != 2).Count() == 10)
 			{
-				MessageBox.Show(ProgressBarStorage.progress.Sum().ToString());
+				Helper.UnHideElement(Done);
 			}
 			else
 			{
@@ -156,15 +164,38 @@ namespace Exam.Pages
 				Switcher.Switch(new Start(index));
 			}
 		}
+
+		private void Done_Click(object sender, RoutedEventArgs e)
+		{
+			MessageBox.Show(ProgressBarStorage.progress.Sum().ToString());
+		}
+
+		private void RadioButton_Click(object sender, RoutedEventArgs e)
+		{
+			RadioButton rb = e.OriginalSource as RadioButton;
+			DependencyObject parent = rb.Parent;
+			while (!(parent is RadioButton || parent is Viewbox))
+			{
+				parent = rb.Parent;
+			}
+			Viewbox vb = parent as Viewbox;
+			SolidColorBrush red = new SolidColorBrush(Colors.Red);
+			SolidColorBrush green = new SolidColorBrush(Colors.Green);
+			int index = ProgressBar.Children.IndexOf(vb);
+			if (ProgressBarStorage.progress[index] !=2)
+			{
+				Switcher.Switch(new Start(index));
+			}
+		}
 		/*
 public static IEnumerable<Item> Enumerate(this UIElementCollection collectionItem)
 {
 
-	for (int index = 0, count = collectionItem.Count; index < count; index++)
-	{
-		UIElement currentItem = collectionItem. (index);
-		yield return currentItem;
-	}
+for (int index = 0, count = collectionItem.Count; index < count; index++)
+{
+UIElement currentItem = collectionItem. (index);
+yield return currentItem;
+}
 }*/
 	}
 }
