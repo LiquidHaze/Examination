@@ -84,15 +84,23 @@ namespace Exam.Pages
 
 		private void Accept_Click(object sender, RoutedEventArgs e)
 		{
-			int index;
+			//int index;
 			//тут проверка правильности ответа
-			if (!currQ.done)
+			/*я не помню нахуй этот кусок кода, он ни на что не влияет
+			 * 
+			 * if (!currQ.done)
 			{
 				index = qList.IndexOf(qList.FirstOrDefault(src =>
-			ProgressBarStorage.progress[qList.IndexOf(src)] != 0
-			&& qList.IndexOf(src) > qList.IndexOf(currQ)));
-			}
-			currQ.done = true;
+					ProgressBarStorage.progress[qList.IndexOf(src)] != 0
+					&& qList.IndexOf(src) > qList.IndexOf(currQ)));
+
+				if (index == -1)
+				{
+					index = qList.IndexOf(qList.FirstOrDefault(src =>
+						ProgressBarStorage.progress[qList.IndexOf(src)] != 0
+						&& qList.IndexOf(src) != qList.IndexOf(currQ)));
+				}
+			}*/
 			currQ.currentIndex = currQ.options.IndexOf(selectedOption);
 			foreach (Viewbox vb in ProgressBar.Children)
 			{
@@ -108,15 +116,25 @@ namespace Exam.Pages
 					}
 				}
 			}
-			if (qList.IndexOf(currQ) < 9)
+
+			if (qList.IndexOf(currQ) < 9 && currQ.done == false)
 			{
+				currQ.done = true;
 				Switcher.Switch(new Start());
+			}
+			else if (ProgressBarStorage.progress.Where(src => src != 2).Count() == 10)
+			{
+				MessageBox.Show(ProgressBarStorage.progress.Sum().ToString());
 			}
 			else
 			{
-				MessageBox.Show(ProgressBarStorage.progress.Sum().ToString());
-				index = qList.IndexOf(qList.FirstOrDefault(src => ProgressBarStorage.progress[qList.IndexOf(src)] != 0));
+				/*
+				 * так было
+				index = qList.IndexOf(qList.FirstOrDefault(src => ProgressBarStorage.progress[qList.IndexOf(src)] != 2));
 				Switcher.Switch(new Start(index));
+				*/
+				currQ.done = true;
+				Switcher.Switch(new Start(qList.IndexOf(qList.FirstOrDefault(src => ProgressBarStorage.progress[qList.IndexOf(src)] == 2))));
 			}
 		}
 
@@ -124,9 +142,19 @@ namespace Exam.Pages
 		{
 			currQ.done = true;
 			int index = qList.IndexOf(qList.FirstOrDefault(src =>
-			ProgressBarStorage.progress[qList.IndexOf(src)] != 0
-			&& qList.IndexOf(src) > qList.IndexOf(currQ)));
-			Switcher.Switch(new Start());
+					ProgressBarStorage.progress[qList.IndexOf(src)] == 2
+					&& qList.IndexOf(src) > qList.IndexOf(currQ)));
+
+			if (index == -1)
+			{
+				index = qList.IndexOf(qList.FirstOrDefault(src =>
+					ProgressBarStorage.progress[qList.IndexOf(src)] == 2
+					&& qList.IndexOf(src) != qList.IndexOf(currQ)));
+			}
+			if (index != -1)
+			{
+				Switcher.Switch(new Start(index));
+			}
 		}
 		/*
 public static IEnumerable<Item> Enumerate(this UIElementCollection collectionItem)
