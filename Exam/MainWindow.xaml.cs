@@ -36,10 +36,18 @@ namespace Exam
 
 		private void Student_Click(object sender, RoutedEventArgs e)
 		{
+			Helper.HideElement(RoleSelector);
+			Helper.HideElement(PasswordInfo);
+			Helper.HideElement(PwdValue);
+			Helper.UnHideElement(Loginlayer);
+			this.Width = 330;
+			this.Height = 250;
+			/*
 			ExaminationSwitcher examination = new ExaminationSwitcher();
 			examination.Owner = this;
 			this.Hide();
 			examination.Show();
+			*/
 		}
 
 		private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -47,12 +55,20 @@ namespace Exam
 			this.Width = 320;
 			this.Height = 230;
 			Helper.UnHideElement(RoleSelector);
+			Helper.UnHideElement(PasswordInfo);
+			Helper.UnHideElement(PwdValue);
 			Helper.HideElement(Loginlayer);
 		}
 
 		private void Login_Click(object sender, RoutedEventArgs e)
 		{
-
+			if (PwdValue.Visibility == Visibility.Hidden)
+			{
+				ExaminationSwitcher examination = new ExaminationSwitcher(LoginValue.Text);
+				examination.Owner = this;
+				this.Hide();
+				examination.Show();
+			}
 		}
 	}
 }

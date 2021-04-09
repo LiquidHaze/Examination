@@ -16,6 +16,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Media;
+using System.Threading;
 
 namespace Exam
 {
@@ -27,36 +29,52 @@ namespace Exam
 		static string _data;
 		public static List<TopicDM> TopicsList;
 		public static string SelectedTopic;
+		public static string _User;
 		public static List<ExerciseDM> qList;
 
-		public ExaminationSwitcher()
+		public ExaminationSwitcher(string user)
 		{
 			InitializeComponent();
+			_User = user;
 			Switcher.pageSwitcher = this;
+			Helper.WriteDoc();
 			ReadDoc();
 			TopicsList = JsonConvert.DeserializeObject<List<TopicDM>>(_data);
+			//Helper.SuperMario();
 			Topic TopicPage = new Topic();
 			Switcher.Switch(TopicPage);
-			this.Closed += MainWindow_Closed;
+			this.Closing += ExaminationSwitcher_Closing;
+			this.Closed += ExaminationSwitcher_Closed;
 			
 			var result = JsonConvert.DeserializeObject<List<TopicDM>>(_data);
 		}
 
-		private void MainWindow_Closed(object sender, EventArgs e)
+		private void ExaminationSwitcher_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			//elper.MissionImpossible();
+			//SystemSounds.Beep.Play();
+			MessageBoxResult result = MessageBox.Show("Если вы закроете окно тест прервётся.\r\nТекущий результат будет созранен как финальный!\r\nПересдача теста без разрешения администратора запрещена!!!\r\nВ случае перезапуска файл ответов будет помечен как \"Недействительный\".", "Прервать тестирование?", MessageBoxButton.YesNo);
+			if (result != MessageBoxResult.Yes)
+			{
+				e.Cancel = true;
+			}
+			//тут надо сохранить результаты в файл
+		}
+
+		private void ExaminationSwitcher_Closed(object sender, EventArgs e)
 		{
 			Owner.Show();
 		}
 
-		static async Task ReadDoc()
+		static void ReadDoc()
 		{
-			//string path = @"C:\SomeDir\hta.txt";
-			string path = "testdata";
+			string path = "data";
 
 			try
 			{
 				using (StreamReader sr = new StreamReader(path))
 				{
-					_data = Encoding.ASCII.GetString(Convert.FromBase64String(sr.ReadToEnd()));
+					_data = Encoding.UTF8.GetString(Convert.FromBase64String(sr.ReadToEnd()));
 				}
 			}
 			catch (Exception e)

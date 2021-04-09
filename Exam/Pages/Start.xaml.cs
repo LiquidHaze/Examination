@@ -25,11 +25,13 @@ namespace Exam.Pages
 		public int _i = 99;
 		public static string selectedOption;
 
-		public Start()
+		public Start(bool reset = false)
 		{
 			_i = 99;
 			currQ = null;
 			selectedOption = null;
+			if (reset)
+				ProgressBarStorage.ProgressReset();
 			InitializeComponent();
 
 			this.Loaded += Star_Page_Loaded;
@@ -47,8 +49,24 @@ namespace Exam.Pages
 		private void Star_Page_Loaded(object sender, EventArgs e)
 		{
 			AppendActiveQuestion();
-			qNumber.Content = qList.IndexOf(currQ).ToString();
-			qMarker.Foreground = new SolidColorBrush(Colors.Black);
+			qNumber.Content = (qList.IndexOf(currQ) + 1).ToString();
+			SolidColorBrush qMrakerColor;
+			switch (ProgressBarStorage.progress[qList.IndexOf(currQ)])
+			{
+				case 1:
+					qMrakerColor = new SolidColorBrush(Colors.Green);
+					break;
+				case 0:
+					qMrakerColor = new SolidColorBrush(Colors.Red);
+					break;
+				case 2:
+					qMrakerColor = new SolidColorBrush(Colors.Black);
+					break;
+				default:
+					qMrakerColor = new SolidColorBrush(Colors.Black);
+					break;
+			}
+			qMarker.Foreground = qMrakerColor;
 			foreach (Viewbox vb in ProgressBar.Children)
 			{
 				RadioButton rb = (RadioButton)vb.Child;
@@ -60,7 +78,7 @@ namespace Exam.Pages
 				{
 					rb.Background = new SolidColorBrush(Colors.Red);
 				}
-				if(qList.IndexOf(currQ) == ProgressBar.Children.IndexOf(vb))
+				if (qList.IndexOf(currQ) == ProgressBar.Children.IndexOf(vb))
 				{
 					rb.Background = new SolidColorBrush(Colors.Yellow);
 					rb.IsChecked = true;
@@ -78,7 +96,16 @@ namespace Exam.Pages
 			{
 				currQ = qList.FirstOrDefault(src => src.done == false);
 			}
-			qHolder.AppendRadioButton(currQ.options);
+			if (_i < 10 && ProgressBarStorage.progress[_i] != 2)
+			{
+				int[] opt = { currQ.correctIndex, currQ.currentIndex };
+				qHolder.AppendRadioButton(currQ.options, opt);
+			}
+			else
+			{
+				qHolder.AppendRadioButton(currQ.options);
+			}
+
 			Question.Text = currQ.question;
 		}
 
@@ -89,25 +116,9 @@ namespace Exam.Pages
 
 		private void Accept_Click(object sender, RoutedEventArgs e)
 		{
-			//int index;
 			//тут проверка правильности ответа
-			/*я не помню нахуй этот кусок кода, он ни на что не влияет
-			 * 
-			 * if (!currQ.done)
-			{
-				index = qList.IndexOf(qList.FirstOrDefault(src =>
-					ProgressBarStorage.progress[qList.IndexOf(src)] != 0
-					&& qList.IndexOf(src) > qList.IndexOf(currQ)));
-
-				if (index == -1)
-				{
-					index = qList.IndexOf(qList.FirstOrDefault(src =>
-						ProgressBarStorage.progress[qList.IndexOf(src)] != 0
-						&& qList.IndexOf(src) != qList.IndexOf(currQ)));
-				}
-			}*/
 			if (currQ.done == true && ProgressBarStorage.progress[qList.IndexOf(currQ)] != 2)
-				return;
+				Skip_Click(sender, e);
 
 			currQ.currentIndex = currQ.options.IndexOf(selectedOption);
 			foreach (Viewbox vb in ProgressBar.Children)
@@ -136,11 +147,6 @@ namespace Exam.Pages
 			}
 			else
 			{
-				/*
-				 * так было
-				index = qList.IndexOf(qList.FirstOrDefault(src => ProgressBarStorage.progress[qList.IndexOf(src)] != 2));
-				Switcher.Switch(new Start(index));
-				*/
 				currQ.done = true;
 				Switcher.Switch(new Start(qList.IndexOf(qList.FirstOrDefault(src => ProgressBarStorage.progress[qList.IndexOf(src)] == 2))));
 			}
@@ -167,7 +173,49 @@ namespace Exam.Pages
 
 		private void Done_Click(object sender, RoutedEventArgs e)
 		{
-			MessageBox.Show(ProgressBarStorage.progress.Sum().ToString());
+			//Helper.StarWars();
+			StringBuilder sb = new StringBuilder();
+			sb.AppendLine("Прввильно отвеченные вопросы:");
+			sb.AppendLine();
+			foreach (ExerciseDM edm in qList)
+			{
+				if (edm.correctIndex == edm.currentIndex)
+				{
+					sb.AppendLine(edm.question);
+				}
+			}
+			sb.AppendLine();
+			sb.AppendLine();
+			sb.AppendLine("НЕпрввильно отвеченные вопросы:");
+			sb.AppendLine();
+			foreach (ExerciseDM edm in qList)
+			{
+				if (edm.correctIndex != edm.currentIndex)
+				{
+					sb.AppendLine(edm.question);
+				}
+			}
+			sb.AppendLine();
+			sb.AppendLine();
+			sb.Append("ОЦЕНКА: ");
+			if (ProgressBarStorage.progress.Sum() >= 9)
+			{
+				sb.AppendLine("5 - Отлично");
+			}
+			else if (ProgressBarStorage.progress.Sum() == 8)
+			{
+				sb.AppendLine("4 - Хорошо");
+			}
+			else if (ProgressBarStorage.progress.Sum() == 7)
+			{
+				sb.AppendLine("3 - Удовлетворительно");
+			}
+			else if (ProgressBarStorage.progress.Sum() < 7)
+			{
+				sb.AppendLine("НЕУДОВЛЕТВОРИТЕЛЬНО!");
+			}
+
+			MessageBox.Show(sb.ToString());
 		}
 
 		private void RadioButton_Click(object sender, RoutedEventArgs e)
@@ -179,23 +227,11 @@ namespace Exam.Pages
 				parent = rb.Parent;
 			}
 			Viewbox vb = parent as Viewbox;
-			SolidColorBrush red = new SolidColorBrush(Colors.Red);
-			SolidColorBrush green = new SolidColorBrush(Colors.Green);
 			int index = ProgressBar.Children.IndexOf(vb);
-			if (ProgressBarStorage.progress[index] !=2)
+			if (ProgressBarStorage.progress[index] != 2)
 			{
 				Switcher.Switch(new Start(index));
 			}
 		}
-		/*
-public static IEnumerable<Item> Enumerate(this UIElementCollection collectionItem)
-{
-
-for (int index = 0, count = collectionItem.Count; index < count; index++)
-{
-UIElement currentItem = collectionItem. (index);
-yield return currentItem;
-}
-}*/
 	}
 }

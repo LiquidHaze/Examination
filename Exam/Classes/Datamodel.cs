@@ -22,6 +22,10 @@ namespace Exam.Classes
 	public static class ProgressBarStorage
 	{
 		public static int[] progress = new int[10] {2,2,2,2,2,2,2,2,2,2};
+		public static void ProgressReset()
+		{
+			progress = new int[10] { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+		}
 	}
 
 	public class TopicDM

@@ -41,7 +41,7 @@ namespace Exam.Pages
 		private void Accept_Click(object sender, RoutedEventArgs e)
 		{
 			GenerateQuestionList();
-			Switcher.Switch(new Start());
+			Switcher.Switch(new Start(true));
 		}
 
 		private void GenerateQuestionList()

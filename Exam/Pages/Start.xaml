@@ -19,42 +19,43 @@
             <StackPanel x:Name="qHolder">
                 <TextBlock x:Name="Question" FontSize="25" TextWrapping="Wrap" Margin="10"></TextBlock>
             </StackPanel>
+        </StackPanel>
+        <StackPanel Margin="10,0,10,10" Height="100" VerticalAlignment="Bottom">
             <StackPanel x:Name="ProgressBar" HorizontalAlignment="Center" Orientation="Horizontal">
                 <Viewbox Height="40">
-                    <RadioButton Click="RadioButton_Click" Background="Gray"></RadioButton>
+                    <RadioButton GroupName="statusrb" Click="RadioButton_Click" Background="Gray"></RadioButton>
                 </Viewbox>
                 <Viewbox Height="40">
-                    <RadioButton Background="Gray"></RadioButton>
+                    <RadioButton GroupName="statusrb" Click="RadioButton_Click" Background="Gray"></RadioButton>
                 </Viewbox>
                 <Viewbox Height="40">
-                    <RadioButton Background="Gray"></RadioButton>
+                    <RadioButton GroupName="statusrb" Click="RadioButton_Click" Background="Gray"></RadioButton>
                 </Viewbox>
                 <Viewbox Height="40">
-                    <RadioButton Background="Gray"></RadioButton>
+                    <RadioButton GroupName="statusrb" Click="RadioButton_Click" Background="Gray"></RadioButton>
                 </Viewbox>
                 <Viewbox Height="40">
-                    <RadioButton Background="Gray"></RadioButton>
+                    <RadioButton GroupName="statusrb" Click="RadioButton_Click" Background="Gray"></RadioButton>
                 </Viewbox>
                 <Viewbox Height="40">
-                    <RadioButton Background="Gray"></RadioButton>
+                    <RadioButton GroupName="statusrb" Click="RadioButton_Click" Background="Gray"></RadioButton>
                 </Viewbox>
                 <Viewbox Height="40">
-                    <RadioButton Background="Gray"></RadioButton>
+                    <RadioButton GroupName="statusrb" Click="RadioButton_Click" Background="Gray"></RadioButton>
                 </Viewbox>
                 <Viewbox Height="40">
-                    <RadioButton Background="Gray"></RadioButton>
+                    <RadioButton GroupName="statusrb" Click="RadioButton_Click" Background="Gray"></RadioButton>
                 </Viewbox>
                 <Viewbox Height="40">
-                    <RadioButton Background="Gray"></RadioButton>
+                    <RadioButton GroupName="statusrb" Click="RadioButton_Click" Background="Gray"></RadioButton>
                 </Viewbox>
                 <Viewbox Height="40">
-                    <RadioButton Background="Gray"></RadioButton>
+                    <RadioButton GroupName="statusrb" Click="RadioButton_Click" Background="Gray"></RadioButton>
                 </Viewbox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button x:Name="Accept" Click="Accept_Click" FontSize="20" Margin="5">Принять</Button>
-                <Button x:Name="Skip" Click="Skip_Click" FontSize="20" Margin="5">Пропустить</Button>
-                <Button FontSize="20" Margin="5">Статус</Button>
+                <Button x:Name="Skip" Click="Skip_Click" FontSize="20" Margin="5">Пропустить/Продолжить</Button>
             </StackPanel>
         </StackPanel>
         <Button x:Name="Done" Click="Done_Click" IsEnabled="False" Visibility="Hidden" FontSize="20" Margin="0,0,10,10" Height="60" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="110">Готово</Button>
