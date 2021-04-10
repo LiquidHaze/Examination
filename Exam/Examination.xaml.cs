@@ -37,7 +37,6 @@ namespace Exam
 			InitializeComponent();
 			_User = user;
 			Switcher.pageSwitcher = this;
-			Helper.WriteDoc();
 			ReadDoc();
 			TopicsList = JsonConvert.DeserializeObject<List<TopicDM>>(_data);
 			//Helper.SuperMario();

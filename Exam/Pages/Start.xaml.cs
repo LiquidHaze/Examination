@@ -214,8 +214,12 @@ namespace Exam.Pages
 			{
 				sb.AppendLine("НЕУДОВЛЕТВОРИТЕЛЬНО!");
 			}
+			Helper.WriteDoc(_User + ".txt", sb.ToString(), false);
 
 			MessageBox.Show(sb.ToString());
+
+			Window win = Window.GetWindow(this);
+			win.Close();
 		}
 
 		private void RadioButton_Click(object sender, RoutedEventArgs e)
