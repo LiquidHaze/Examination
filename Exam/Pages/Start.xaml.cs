@@ -84,6 +84,12 @@ namespace Exam.Pages
 					rb.IsChecked = true;
 				}
 			}
+			/*
+			if (qHolder.ActualHeight > 450)
+			{
+				this.Height = qHolder.ActualHeight + 200;
+			}
+			*/
 		}
 
 		private void AppendActiveQuestion()
@@ -181,7 +187,7 @@ namespace Exam.Pages
 			{
 				if (edm.correctIndex == edm.currentIndex)
 				{
-					sb.AppendLine(edm.question);
+					sb.AppendLine("- " + edm.question);
 				}
 			}
 			sb.AppendLine();
@@ -192,7 +198,7 @@ namespace Exam.Pages
 			{
 				if (edm.correctIndex != edm.currentIndex)
 				{
-					sb.AppendLine(edm.question);
+					sb.AppendLine("- " + edm.question);
 				}
 			}
 			sb.AppendLine();

@@ -57,9 +57,10 @@ namespace Exam.Classes
 		{
 			foreach (string option in options)
 			{
+				TextBlock tb = new TextBlock() { Text = option, TextWrapping = TextWrapping.Wrap };
 				RadioButton rb = new RadioButton()
 				{
-					Content = option,
+					Content = tb,
 					Margin = new Thickness(5),
 					GroupName = "Options",
 					FontSize = 20,
@@ -67,7 +68,7 @@ namespace Exam.Classes
 				};
 				rb.Checked += (s, e) =>
 				{
-					Exam.Pages.Start.selectedOption = rb.Content.ToString();
+					Exam.Pages.Start.selectedOption = ((TextBlock)rb.Content).Text;
 				};
 				sp.Children.Add(rb);
 			}
@@ -92,9 +93,12 @@ namespace Exam.Classes
 				{
 					rbColor = new SolidColorBrush(Colors.Red);
 				}
-					RadioButton rb = new RadioButton()
+
+				TextBlock tb = new TextBlock() { Text = option, TextWrapping = TextWrapping.Wrap };
+
+				RadioButton rb = new RadioButton()
 				{
-					Content = option,
+					Content = tb,
 					Margin = new Thickness(5),
 					GroupName = "Options",
 					FontSize = 20,
@@ -103,7 +107,7 @@ namespace Exam.Classes
 				};
 				rb.Checked += (s, e) =>
 				{
-					Exam.Pages.Start.selectedOption = rb.Content.ToString();
+					Exam.Pages.Start.selectedOption = ((TextBlock)rb.Content).Text;
 				};
 				sp.Children.Add(rb);
 			}
