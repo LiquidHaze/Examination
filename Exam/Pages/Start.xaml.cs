@@ -42,7 +42,8 @@ namespace Exam.Pages
 			currQ = null;
 			selectedOption = null;
 			InitializeComponent();
-
+			if (!ProgressBarStorage.progress.Contains(2))
+				Helper.UnHideElement(Done);
 			this.Loaded += Star_Page_Loaded;
 		}
 
@@ -123,9 +124,11 @@ namespace Exam.Pages
 		private void Accept_Click(object sender, RoutedEventArgs e)
 		{
 			//тут проверка правильности ответа
-			if (currQ.done == true && ProgressBarStorage.progress[qList.IndexOf(currQ)] != 2)
+			if ((currQ.done == true && ProgressBarStorage.progress[qList.IndexOf(currQ)] != 2) || string.IsNullOrEmpty(selectedOption))
+			{ 
 				Skip_Click(sender, e);
-
+				return;
+			}
 			currQ.currentIndex = currQ.options.IndexOf(selectedOption);
 			foreach (Viewbox vb in ProgressBar.Children)
 			{
@@ -142,14 +145,22 @@ namespace Exam.Pages
 				}
 			}
 
-			if (qList.IndexOf(currQ) < 9 && currQ.done == false)
+			if (ProgressBarStorage.progress.Where(src => src != 2).Count() == 10)
+			{
+				if (currQ.correctIndex == currQ.currentIndex)
+				{
+					((RadioButton)((Viewbox)ProgressBar.Children[9]).Child).Background = new SolidColorBrush(Colors.Green);
+				}
+				else
+				{
+					((RadioButton)((Viewbox)ProgressBar.Children[9]).Child).Background = new SolidColorBrush(Colors.Red);
+				}
+				Helper.UnHideElement(Done);
+			}
+			else if (qList.IndexOf(currQ) < 9 && currQ.done == false)
 			{
 				currQ.done = true;
 				Switcher.Switch(new Start());
-			}
-			else if (ProgressBarStorage.progress.Where(src => src != 2).Count() == 10)
-			{
-				Helper.UnHideElement(Done);
 			}
 			else
 			{
@@ -175,13 +186,14 @@ namespace Exam.Pages
 			{
 				Switcher.Switch(new Start(index));
 			}
+			Helper.UnHideElement(Done);
 		}
 
 		private void Done_Click(object sender, RoutedEventArgs e)
 		{
 			//Helper.StarWars();
 			StringBuilder sb = new StringBuilder();
-			sb.AppendLine("Прввильно отвеченные вопросы:");
+			sb.AppendLine("Верно отвеченные вопросы:");
 			sb.AppendLine();
 			foreach (ExerciseDM edm in qList)
 			{
@@ -192,7 +204,7 @@ namespace Exam.Pages
 			}
 			sb.AppendLine();
 			sb.AppendLine();
-			sb.AppendLine("НЕпрввильно отвеченные вопросы:");
+			sb.AppendLine("Неверно отвеченные вопросы:");
 			sb.AppendLine();
 			foreach (ExerciseDM edm in qList)
 			{

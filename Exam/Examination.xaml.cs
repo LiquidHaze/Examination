@@ -50,12 +50,13 @@ namespace Exam
 
 		private void ExaminationSwitcher_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			//elper.MissionImpossible();
-			//SystemSounds.Beep.Play();
-			MessageBoxResult result = MessageBox.Show("Если вы закроете окно тест прервётся.\r\nТекущий результат будет созранен как финальный!\r\nПересдача теста без разрешения администратора запрещена!!!\r\nВ случае перезапуска файл ответов будет помечен как \"Недействительный\".", "Прервать тестирование?", MessageBoxButton.YesNo);
-			if (result != MessageBoxResult.Yes)
+			if (ProgressBarStorage.progress.Where(src => src != 2).Count() == 0)
 			{
-				e.Cancel = true;
+				MessageBoxResult result = MessageBox.Show("Если вы закроете окно тест прервётся.\r\nТекущий результат будет созранен как финальный!\r\nПересдача теста без разрешения администратора запрещена!!!\r\nВ случае перезапуска файл ответов будет помечен как \"Недействительный\".", "Прервать тестирование?", MessageBoxButton.YesNo);
+				if (result != MessageBoxResult.Yes)
+				{
+					e.Cancel = true;
+				}
 			}
 			//тут надо сохранить результаты в файл
 		}

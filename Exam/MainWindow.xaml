@@ -7,15 +7,28 @@
         mc:Ignorable="d"
         Title="Выбор роли" Height="230" Width="320">
     <Grid>
+        <Grid.Background >
+            <LinearGradientBrush EndPoint="1,0.5"   StartPoint="0,0.5">
+                <GradientStop Color="#FFECDEAD" Offset="0"/>
+                <GradientStop Color="#FFF3ECDE" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <StackPanel x:Name="RoleSelector" Margin="20">
-            <Label Height="30" Width="150" Margin="10" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top">Выберите роль:</Label>
+            <Label Height="30" Width="150" Margin="10" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" FontWeight="DemiBold" FontSize="15">Выберите роль:</Label>
             <Button x:Name="Admin" Click="Admin_Click" Height="30" Width="150" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top">Администратор</Button>
             <Button x:Name="Student" Click="Student_Click" Height="30" Width="150" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top">Испытуемый</Button>
         </StackPanel>
         <StackPanel x:Name="Loginlayer" IsEnabled="False" Visibility="Hidden">
-            <Label Height="30" Width="150" Margin="10" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top">Авторизуйтесь:</Label>
+            <StackPanel.Background >
+                <LinearGradientBrush EndPoint="1,0.5"   StartPoint="0,0.5">
+                    <GradientStop Color="#FFECDEAD" Offset="0"/>
+                    <GradientStop Color="#FFF3ECDE" Offset="1"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <Label Height="30" Width="150" Margin="10" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" FontWeight="DemiBold" FontSize="15">Авторизуйтесь:</Label>
             <StackPanel Orientation="Horizontal" Margin="10">
-                <Label x:Name="LogNameInfo" Height="30" Width="85"  HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Top">Login:</Label>
+                <Label x:Name="LogNameInfo" Height="30" Width="85"  HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Top"
+                       FontWeight="DemiBold" FontSize="15">Login:</Label>
                 <TextBox x:Name="LoginValue"  Height="30" Width="200" VerticalAlignment="Top"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10">

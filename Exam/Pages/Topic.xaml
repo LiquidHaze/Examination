@@ -11,9 +11,15 @@
       Title="Выбор темы">
 
     <Grid>
+        <Grid.Background >
+            <LinearGradientBrush EndPoint="1,0.5"   StartPoint="0,0.5">
+                <GradientStop Color="#FFECDEAD" Offset="0"/>
+                <GradientStop Color="#FFF3ECDE" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <Label>Выберите тему:</Label>
+                <Label FontSize="22" FontWeight="DemiBold">Выберите тему:</Label>
             </StackPanel>
             <StackPanel x:Name="TopicList">
             </StackPanel>
