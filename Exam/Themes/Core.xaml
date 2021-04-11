@@ -6,7 +6,6 @@
         <ResourceDictionary Source="Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-//.,,,,,,,,,,,,,,,,,хуй,,,,,,,,,,,,,
     <!-- Button -->
     <Style TargetType="Button">
         <Setter Property="TextOptions.TextHintingMode" Value="Animated" />

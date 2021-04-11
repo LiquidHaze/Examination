@@ -24,6 +24,16 @@ namespace Exam
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			this.Loaded += MainWindowLoaded;
+		}
+
+		private void MainWindowLoaded(object sender, RoutedEventArgs e)
+		{
+			Window logo = new Logo();
+			logo.Owner = this;
+			this.Hide();
+			logo.Show();
 		}
 
 		private void Admin_Click(object sender, RoutedEventArgs e)
