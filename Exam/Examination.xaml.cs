@@ -50,7 +50,7 @@ namespace Exam
 
 		private void ExaminationSwitcher_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			if (ProgressBarStorage.progress.Where(src => src != 2).Count() == 0)
+			if (ProgressBarStorage.progress.Where(src => src != 2).Count() != 0)
 			{
 				MessageBoxResult result = MessageBox.Show("Если вы закроете окно тест прервётся.\r\nТекущий результат будет созранен как финальный!\r\nПересдача теста без разрешения администратора запрещена!!!\r\nВ случае перезапуска файл ответов будет помечен как \"Недействительный\".", "Прервать тестирование?", MessageBoxButton.YesNo);
 				if (result != MessageBoxResult.Yes)
