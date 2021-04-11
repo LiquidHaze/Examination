@@ -11,7 +11,7 @@
         <Button x:Name="logo" Click="logo_Click" IsDefault="True" IsCancel="True">
             <Image Source="65.jpg"></Image>
         </Button>
-        <Label>Что бы продолжить - Нажмите кнопку Enter или Escape</Label>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top">Что бы продолжить - Нажмите кнопку Enter или Escape</Label>
         <Label HorizontalAlignment="Right" VerticalAlignment="Bottom">Нажмите кнопку Enter или Escape, что бы продолжить</Label>
     </Grid>
 </Window>
