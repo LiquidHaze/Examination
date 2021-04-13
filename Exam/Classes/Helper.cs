@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows;
@@ -422,6 +423,78 @@ namespace Exam.Classes
 			{
 				Console.WriteLine(e.Message);
 			}
+		}
+
+		public static StringBuilder BuildAndWriteResult(List<ExerciseDM> qList, UserDM _User)
+		{
+			StringBuilder sb = new StringBuilder();
+
+			if (_User.IsInterupted == true)
+			{
+				sb.AppendLine("ТЕСТИРОВАНИЕ БЫЛО ПРЕРВАНО!!!");
+				sb.AppendLine();
+				sb.AppendLine("Пропущенные вопросы:");
+				sb.AppendLine(); 
+				foreach (ExerciseDM edm in qList)
+				{
+					if (ProgressBarStorage.progress[qList.IndexOf(edm)] == 2)
+					{
+						sb.AppendLine("- " + edm.question);
+					}
+				}
+				sb.AppendLine(); 
+				sb.AppendLine();
+			}
+
+			sb.AppendLine("Верно отвеченные вопросы:");
+			sb.AppendLine();
+			foreach (ExerciseDM edm in qList)
+			{
+				if (edm.correctIndex == edm.currentIndex && ProgressBarStorage.progress[qList.IndexOf(edm)] == 1)
+				{
+					sb.AppendLine("- " + edm.question);
+				}
+			}
+			sb.AppendLine();
+			sb.AppendLine();
+			sb.AppendLine("Неверно отвеченные вопросы:");
+			sb.AppendLine();
+			foreach (ExerciseDM edm in qList)
+			{
+				if (edm.correctIndex != edm.currentIndex && ProgressBarStorage.progress[qList.IndexOf(edm)] == 0)
+				{
+					sb.AppendLine("- " + edm.question);
+				}
+			}
+			sb.AppendLine();
+			sb.AppendLine();
+			sb.Append("ОЦЕНКА: ");
+			if (ProgressBarStorage.progress.Where(src => src == 1).Sum() >= 9)
+			{
+				sb.AppendLine("5 - Отлично");
+			}
+			else if (ProgressBarStorage.progress.Where(src => src == 1).Sum() == 8)
+			{
+				sb.AppendLine("4 - Хорошо");
+			}
+			else if (ProgressBarStorage.progress.Where(src => src == 1).Sum() == 7)
+			{
+				sb.AppendLine("3 - Удовлетворительно");
+			}
+			else if (ProgressBarStorage.progress.Where(src => src == 1).Sum() < 7)
+			{
+				sb.AppendLine("НЕУДОВЛЕТВОРИТЕЛЬНО!");
+			}
+			if (_User.IsInterupted == true)
+			{
+				Helper.WriteDoc(_User.Name + "INTERUPTED_" + DateTime.Now.ToString("MM-dd-HH-mm") + ".txt", sb.ToString(), false);
+			}
+			else
+			{
+				Helper.WriteDoc(_User.Name + ".txt", sb.ToString(), false);
+			}
+
+			return sb;
 		}
 	}
 }

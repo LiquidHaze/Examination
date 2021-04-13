@@ -42,9 +42,9 @@ namespace Exam.Classes
 
 	}
 
-	class temp1
+	public class UserDM
 	{
 		public string Name { get; set; }
-		public int Age { get; set; }
+		public bool IsInterupted { get; set; }
 	}
 }

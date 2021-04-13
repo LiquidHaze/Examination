@@ -191,7 +191,8 @@ namespace Exam.Pages
 
 		private void Done_Click(object sender, RoutedEventArgs e)
 		{
-			//Helper.StarWars();
+			/*
+			 * //Helper.StarWars();
 			StringBuilder sb = new StringBuilder();
 			sb.AppendLine("Верно отвеченные вопросы:");
 			sb.AppendLine();
@@ -233,7 +234,8 @@ namespace Exam.Pages
 				sb.AppendLine("НЕУДОВЛЕТВОРИТЕЛЬНО!");
 			}
 			Helper.WriteDoc(_User + ".txt", sb.ToString(), false);
-
+			*/
+			StringBuilder sb = Helper.BuildAndWriteResult(qList, _User);
 			MessageBox.Show(sb.ToString());
 
 			Window win = Window.GetWindow(this);

@@ -29,10 +29,10 @@ namespace Exam
 		static string _data;
 		public static List<TopicDM> TopicsList;
 		public static string SelectedTopic;
-		public static string _User;
+		public static UserDM _User;
 		public static List<ExerciseDM> qList;
 
-		public ExaminationSwitcher(string user)
+		public ExaminationSwitcher(UserDM user)
 		{
 			InitializeComponent();
 			_User = user;
@@ -48,15 +48,18 @@ namespace Exam
 			var result = JsonConvert.DeserializeObject<List<TopicDM>>(_data);
 		}
 
-		private void ExaminationSwitcher_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		public void ExaminationSwitcher_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			if (ProgressBarStorage.progress.Where(src => src != 2).Count() != 0)
+			int count = ProgressBarStorage.progress.Where(src => src != 2).Count();
+			if (count != 0 && count != 10)
 			{
-				MessageBoxResult result = MessageBox.Show("Если вы закроете окно тест прервётся.\r\nТекущий результат будет созранен как финальный!\r\nПересдача теста без разрешения администратора запрещена!!!\r\nВ случае перезапуска файл ответов будет помечен как \"Недействительный\".", "Прервать тестирование?", MessageBoxButton.YesNo);
+				MessageBoxResult result = MessageBox.Show("Если вы закроете окно тест прервётся.\r\nТекущий результат будет созранен как финальный!\r\nПересдача теста без разрешения администратора запрещена!!!\r\nВ случае перезапуска файл ответов будет помечен как \"Недействительный\". \r\n ПРЕРВАТЬ ТЕСТИРОВАНИЕ?", "Прервать тестирование?", MessageBoxButton.YesNo);
 				if (result != MessageBoxResult.Yes)
 				{
 					e.Cancel = true;
 				}
+				_User.IsInterupted = true;
+				Helper.BuildAndWriteResult(qList, _User);
 			}
 			//тут надо сохранить результаты в файл
 		}

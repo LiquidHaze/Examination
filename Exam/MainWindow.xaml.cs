@@ -74,7 +74,8 @@ namespace Exam
 		{
 			if (PwdValue.Visibility == Visibility.Hidden)
 			{
-				ExaminationSwitcher examination = new ExaminationSwitcher(LoginValue.Text);
+				UserDM user = new UserDM() { Name = LoginValue.Text, IsInterupted = false };
+				ExaminationSwitcher examination = new ExaminationSwitcher(user);
 				examination.Owner = this;
 				this.Hide();
 				examination.Show();
