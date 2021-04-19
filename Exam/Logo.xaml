@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Exam"
         mc:Ignorable="d"
+        Icon="65ico.png"
         Title="65 Автомобильная бригада" Height="420" Width="600">
     <Grid>
         <Image Source="65.jpg"></Image>
